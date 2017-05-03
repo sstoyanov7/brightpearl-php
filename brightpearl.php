@@ -30,6 +30,41 @@ class API {
 		curl_close($ch);
 		return $r;
 	}
+
+	function post($uri, $data) {
+		$ch = $this->openCurl();
+		curl_setopt($ch, CURLOPT_URL, $uri);
+		//curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$r = curl_exec($ch);
+		curl_close($ch);
+		return $r;
+	}
+
+	function put($uri, $data) {
+		$ch = $this->openCurl();
+		curl_setopt($ch, CURLOPT_URL, $uri);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$r = curl_exec($ch);
+		curl_close($ch);
+		return $r;
+	}
+
+	function delete($uri, $data) {
+		$ch = $this->openCurl();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$r = curl_exec($ch);
+		curl_close($ch);
+		return $r;
+	}
 }
 
 
@@ -144,17 +179,8 @@ class Product {
 			$packagingType = $c['PCF_PACKTYPE']['value'];
 			$pos = strpos($packagingType, " - ");
 			$this->packagingType = substr($packagingType, 0, $pos);
-
 		}
-
-
 	}
 }
-
-
-
-
-
-
 
 ?>
